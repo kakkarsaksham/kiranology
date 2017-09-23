@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+from utils.message import *
+
 
 class UserSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(max_length=30)
     password1 = serializers.CharField(write_only=True, style={'input_type': 'password'})
     password2 = serializers.CharField(write_only=True, style={'input_type': 'password'})
     email = serializers.EmailField()
-    roles = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -32,7 +34,6 @@ class UserSerializer(serializers.ModelSerializer):
         return attrs
 
     def save(self, request):
-        phone_number = request.data.get('phone_number')
         validated_data = dict(username=request.data['username'], email=request.data['email'])
         validated_data['password'] = request.data['password1']
         validated_data['first_name'] = request.data.get('first_name')

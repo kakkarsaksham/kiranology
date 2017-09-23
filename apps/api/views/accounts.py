@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from apps.api.serializers import UserSerializer
+from apps.api.serializers.accounts import UserSerializer
 from utils.filters import UserFilterSet
 
 
